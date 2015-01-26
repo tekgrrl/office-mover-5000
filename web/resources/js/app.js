@@ -5,7 +5,7 @@ var Dropdown = require('./components/dropdown');
 var Furniture  = require('./components/furniture');
 var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
-// TODO: STEP-1 Create furnitureRef
+// TODO: STEP-1 Create furnitureRef - URL reference to the data store
 
 /*
 * Application Module
@@ -114,7 +114,7 @@ var app = {
   addFurniture: function(type) {
     /* TODO: STEP-1
     *
-    * Create a furniture reference with type: type and add it to
+    * Create a new furniture object with type: type and add it to
     * Firebase. Other properities are
     * top: 400,
     * left: 300,
