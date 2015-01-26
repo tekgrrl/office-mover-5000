@@ -79,7 +79,7 @@ var app = {
   logout: function(){
     this.$signOutButton.on("click", function(e) {
       // STEP-4
-      rootRef.unAuth();
+      rootRef.unauth();
     });
   },
 
@@ -179,11 +179,14 @@ var app = {
     var self = this;
 
     furnitureRef.on("child_added", function(snapshot) {
+      self.setMaxZIndex(snapshot);
       self.createFurniture(snapshot);
     });
 
     // STEP-3
     furnitureRef.once("value", function(snapshot) {
+      self.setMaxZIndex(snapshot, true);
+
       snapshot.forEach(function(childSnapshot) {
         self.createFurniture(childSnapshot);
       });
@@ -208,6 +211,27 @@ var app = {
   hideWelcomeScreen: function(){
     this.$welcome.addClass("is-hidden");
     this.$app.removeClass("is-hidden");
+  },
+
+  /*
+  * Set Furniture Stacking Order (z-index)
+  *
+  */
+
+  setMaxZIndex: function(snapshot, hasChildren) {
+    var value = snapshot.val();
+
+    if (hasChildren) {
+      var maxItem = _.max(value, function(item){
+        return item['z-index'];
+      });
+
+      this.maxZIndex = maxItem['z-index'] || 0;
+    }
+    else {
+      var zIndex = (value['z-index'] >= this.maxZIndex) ? value['z-index'] : this.maxZIndex;
+      this.maxZIndex = zIndex;
+    }
   }
 };
 
