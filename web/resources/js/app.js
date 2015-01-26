@@ -142,7 +142,7 @@ var app = {
   renderFurniture: function() {
     /* TODO: STEP-2
     *
-    * Listen for new furniture added to Firebase and
+    * Get existing furniture from Firebase and
     * add it using createFurniture helper function
     */
   }
