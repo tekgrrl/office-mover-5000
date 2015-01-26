@@ -7,6 +7,7 @@ var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
 // STEP-1 Create furnitureRef
 var furnitureRef = new Firebase(Utils.urls.furniture);
+// TODO: STEP-4 Create a reference to the root of the Firebase
 
 /*
 * Application Module
@@ -41,10 +42,33 @@ var app = {
 
     //INITIALIZE APP
     welcome.init();
+    this.checkUserAuthentication(); // added for step-4
     this.createDropdowns();
     this.setOfficeBackground();
     // STEP-2
-    this.renderFurniture();
+    // this.renderFurniture(); // moved for step-4
+  },
+
+  /*
+  * Check User Authentication
+  *
+  * Hide/Show if user is loggedin/loggedout
+  */
+
+  checkUserAuthentication: function(){
+    var self = this;
+
+    self.hideWelcomeScreen();
+    self.renderFurniture();
+
+    /* TODO: STEP-4
+    *
+    * Check if the user is authenticated. If yes hide the
+    * welcome screen and render the furniture. If no
+    * display the welcome screen
+    *
+    */
+
   },
 
 
@@ -120,7 +144,7 @@ var app = {
       type: type,
       rotation: 0,
       locked: false,
-      "z-index": this.maxZIndex + 1,
+      "z-index": this.maxZIndex + 1, // step-4 change
       name: ""
     });
   },
@@ -140,18 +164,69 @@ var app = {
   * Renders new items of furniture
   */
   renderFurniture: function() {
-    // STEP-2
+    // STEP-3
     var self = this;
 
     furnitureRef.on("child_added", function(snapshot) {
+      self.setMaxZIndex(snapshot); // added for step-4
       self.createFurniture(snapshot);
     });
+  },
 
-    /* TODO: STEP-3
-    *
-    * Get existing furniture from Firebase
-    * add all using createFurniture helper function
-    */
+
+  /*
+  * Log out of App
+  *
+  */
+
+  logout: function(){
+    this.$signOutButton.on("click", function(e){
+      // TODO: STEP-4 unauthenticate the user
+    });
+  },
+
+
+  /*
+  * Show App Welcome Screen (added for step-4)
+  *
+  */
+
+  showWelcomeScreen: function(){
+    this.$welcome.removeClass("is-hidden");
+    this.$app.addClass("is-hidden");
+  },
+
+
+  /*
+  * Hide App Welcome Screen (added for step-4)
+  *
+  */
+
+  hideWelcomeScreen: function(){
+    this.$welcome.addClass("is-hidden");
+    this.$app.removeClass("is-hidden");
+  },
+
+
+  /*
+  * Set Furniture Stacking Order (z-index) (added for step-4)
+  *
+  */
+
+  setMaxZIndex: function(snapshot, hasChildren) {
+    var value = snapshot.val();
+
+    if (hasChildren) {
+      var maxItem = _.max(value, function(item){
+        return item['z-index'];
+      });
+
+      this.maxZIndex = maxItem['z-index'] || 0;
+    }
+    else {
+      var zIndex = (value['z-index'] >= this.maxZIndex) ? value['z-index'] : this.maxZIndex;
+      this.maxZIndex = zIndex;
+    }
   }
 };
 

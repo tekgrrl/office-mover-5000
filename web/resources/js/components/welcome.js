@@ -22,15 +22,12 @@ var welcome = {
     this.$signInButtons.on("click", function(e){
       var provider = $(this).data("provider");
 
-      rootRef.authWithOAuthPopup(provider, function(error, authData){
-        if (error){
-          console.log(error);
-          self.$alert.removeClass("is-hidden");
-        }
-        else {
-          self.$alert.addClass("is-hidden");
-        }
-      });
+      /* TODO: STEP-4
+      *
+      * Authenticate the user with the authentication provider
+      * specified by provider. On error display the index.html tag
+      * with class='alert'
+      */
     });
   }
 };
