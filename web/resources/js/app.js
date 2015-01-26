@@ -5,7 +5,7 @@ var Dropdown = require('./components/dropdown');
 var Furniture  = require('./components/furniture');
 var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
-// STEP-1
+// STEP-1 Create furnitureRef
 var furnitureRef = new Firebase(Utils.urls.furniture);
 
 /*
@@ -43,6 +43,8 @@ var app = {
     welcome.init();
     this.createDropdowns();
     this.setOfficeBackground();
+    // TODO: STEP-2
+    // add call to renderFurniture() 
   },
 
 
@@ -121,6 +123,27 @@ var app = {
       "z-index": this.maxZIndex + 1,
       name: ""
     });
+  },
+
+  /*
+  * Create Furniture
+  *
+  * Helper function to add a piece of furniture from a Firebase Snapshot
+  */
+  createFurniture: function(snapshot) {
+    new Furniture(snapshot, this);
+  },
+
+  /*
+  * Render Furniture
+  *
+  * Renders new items of furniture
+  */
+  renderFurniture: function() {
+    /* TODO: STEP-2
+    *
+    * Listen for new furniture added to Firebase and
+    * add it sing createFurniture helper function
   }
 };
 
