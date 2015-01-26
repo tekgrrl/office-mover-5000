@@ -191,7 +191,7 @@ var Furniture = function(snapshot, app) {
     else {
       // FURNITURE UPDATED WITH NEW VALUES
       self.updateValues(value);
-      self.app.setMaxZIndex(snap);
+      // self.app.setMaxZIndex(snap);
       self.render();
     }
   });
