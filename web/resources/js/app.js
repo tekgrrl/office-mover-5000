@@ -143,9 +143,9 @@ var app = {
     // STEP-2
     var self = this;
 
-    furnitureRef.on("child_added", function(snapshot)) {
+    furnitureRef.on("child_added", function(snapshot) {
       self.createFurniture(snapshot);
-    }
+    });
 
     /* TODO: STEP-3
     *
