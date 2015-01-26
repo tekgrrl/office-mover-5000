@@ -148,6 +148,12 @@ var app = {
         self.createFurniture(childSnapshot);
       });
     });
+
+    /* TODO: STEP-3
+    *
+    * Update renderFurniture() to display existing furniture and
+    * add new items dynamically
+    */
   }
 };
 
