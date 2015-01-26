@@ -7,7 +7,8 @@ var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
 // STEP-1 Create furnitureRef
 var furnitureRef = new Firebase(Utils.urls.furniture);
-// TODO: STEP-4 Create rootRef (top level of your Firebase)
+// STEP-4 Create rootRef
+var rootRef = new Firebase(Utils.urls.root);
 
 /*
 * Application Module
@@ -45,6 +46,7 @@ var app = {
     this.checkUserAuthentication(); // Added for STEP-4
     this.createDropdowns();
     this.setOfficeBackground();
+    this.logout(); // Added for last step
   },
 
   /*
@@ -55,18 +57,18 @@ var app = {
   checkUserAuthentication: function(){
     var self = this;
 
-    self.hideWelcomeScreen();
-    self.renderFurniture();
+    // STEP-4
 
-    /* TODO: STEP-4
-    *
-    * Authenticate user here
-    * If user is authenticated hide the welcome screen and render
-    * furniture (the two calls above). If not authenticated, display
-    * welcome screen (see index.html)
-    *
-    * NOTE: Call userProfile.init(authData) to setup the authenticated user
-    */
+    rootRef.onAuth(function(authData) {
+      if (authData) {
+        self.hideWelcomeScreen();
+        self.renderFurniture();
+        userProfile.init(authData);
+      }
+      else {
+        self.showWelcomeScreen();
+      }
+    });
   },
 
   /*
@@ -76,8 +78,8 @@ var app = {
 
   logout: function(){
     this.$signOutButton.on("click", function(e) {
-      // TODO: STEP-4
-      // Unauthenticate the user
+      // STEP-4
+      rootRef.unAuth();
     });
   },
 
