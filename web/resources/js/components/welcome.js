@@ -21,7 +21,8 @@ var welcome = {
     // SETUP LOGIN BUTTON
     this.$signInButtons.on("click", function(e){
       var provider = $(this).data("provider");
-
+      
+      // STEP-4
       rootRef.authWithOAuthPopup(provider, function(error, authData){
         if (error){
           console.log(error);

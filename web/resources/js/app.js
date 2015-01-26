@@ -58,12 +58,11 @@ var app = {
     var self = this;
 
     // STEP-4
-
     rootRef.onAuth(function(authData) {
       if (authData) {
+        userProfile.init(authData);
         self.hideWelcomeScreen();
         self.renderFurniture();
-        userProfile.init(authData);
       }
       else {
         self.showWelcomeScreen();
@@ -175,21 +174,12 @@ var app = {
   * Render all existing furniture and add new items
   */
   renderFurniture: function() {
-    // STEP-2
+    // STEP-3
     var self = this;
 
     furnitureRef.on("child_added", function(snapshot) {
       self.setMaxZIndex(snapshot);
       self.createFurniture(snapshot);
-    });
-
-    // STEP-3
-    furnitureRef.once("value", function(snapshot) {
-      self.setMaxZIndex(snapshot, true);
-
-      snapshot.forEach(function(childSnapshot) {
-        self.createFurniture(childSnapshot);
-      });
     });
   },
 
