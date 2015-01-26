@@ -143,7 +143,7 @@ var app = {
     /* TODO: STEP-2
     *
     * Get existing furniture from Firebase and
-    * add it using createFurniture helper function
+    * add it using createFurniture() helper function
     */
   }
 };
