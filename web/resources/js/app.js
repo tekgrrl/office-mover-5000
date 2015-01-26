@@ -7,7 +7,6 @@ var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
 // STEP-1 Create furnitureRef
 var furnitureRef = new Firebase(Utils.urls.furniture);
-// TODO: STEP-4 Create rootRef (top level of your Firebase)
 
 /*
 * Application Module
@@ -42,43 +41,10 @@ var app = {
 
     //INITIALIZE APP
     welcome.init();
-    this.checkUserAuthentication(); // Added for STEP-4
     this.createDropdowns();
     this.setOfficeBackground();
-  },
-
-  /*
-  * Check User Authentication helper function
-  *
-  * Hide/Show if user is loggedin/loggedout
-  */
-  checkUserAuthentication: function(){
-    var self = this;
-
-    self.hideWelcomeScreen();
-    self.renderFurniture();
-
-    /* TODO: STEP-4
-    *
-    * Authenticate user here
-    * If user is authenticated hide the welcome screen and render
-    * furniture (the two calls above). If not authenticated, display
-    * welcome screen (see index.html)
-    *
-    * NOTE: Call userProfile.init(authData) to setup the authenticated user
-    */
-  },
-
-  /*
-  * Log out of App (added for STEP-4)
-  *
-  */
-
-  logout: function(){
-    this.$signOutButton.on("click", function(e) {
-      // TODO: STEP-4
-      // Unauthenticate the user
-    });
+    // STEP-2
+    this.renderFurniture();
   },
 
   /*
@@ -176,36 +142,12 @@ var app = {
     // STEP-2
     var self = this;
 
-    furnitureRef.on("child_added", function(snapshot) {
-      self.createFurniture(snapshot);
-    });
-
-    // STEP-3
+    // STEP-2
     furnitureRef.once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         self.createFurniture(childSnapshot);
       });
     });
-  },
-
-
-  /*
-  * Show App Welcome Screen (added for STEP-4)
-  *
-  */
-  showWelcomeScreen: function(){
-    this.$welcome.removeClass("is-hidden");
-    this.$app.addClass("is-hidden");
-  },
-
-
-  /*
-  * Hide App Welcome Screen (added for STEP-4)
-  *
-  */
-  hideWelcomeScreen: function(){
-    this.$welcome.addClass("is-hidden");
-    this.$app.removeClass("is-hidden");
   }
 };
 
