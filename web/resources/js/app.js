@@ -43,8 +43,8 @@ var app = {
     welcome.init();
     this.createDropdowns();
     this.setOfficeBackground();
-    // TODO: STEP-2
-    // add call to renderFurniture() 
+    // STEP-2
+    this.renderFurniture();
   },
 
 
@@ -140,10 +140,18 @@ var app = {
   * Renders new items of furniture
   */
   renderFurniture: function() {
-    /* TODO: STEP-2
+    // STEP-2
+    var self = this;
+
+    furnitureRef.on("child_added", function(snapshot)) {
+      self.createFurniture(snapshot);
+    }
+
+    /* TODO: STEP-3
     *
-    * Listen for new furniture added to Firebase and
-    * add it sing createFurniture helper function
+    * Get existing furniture from Firebase
+    * add all using createFurniture helper function
+    */
   }
 };
 
