@@ -44,7 +44,7 @@ var app = {
     this.createDropdowns();
     this.setOfficeBackground();
     // TODO: STEP-2
-    // add call to renderFurniture() 
+    // add call to renderFurniture()
   },
 
 
@@ -143,7 +143,8 @@ var app = {
     /* TODO: STEP-2
     *
     * Listen for new furniture added to Firebase and
-    * add it sing createFurniture helper function
+    * add it using createFurniture helper function
+    */
   }
 };
 
