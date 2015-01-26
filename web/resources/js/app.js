@@ -4,9 +4,9 @@ var userProfile = require('./components/user-profile');
 var Dropdown = require('./components/dropdown');
 var Furniture  = require('./components/furniture');
 var welcome = require('./components/welcome');
-var rootRef = new Firebase(Utils.urls.root);
-var furnitureRef = new Firebase(Utils.urls.furniture);
 var backgroundRef = new Firebase(Utils.urls.background);
+// STEP-1
+var furnitureRef = new Firebase(Utils.urls.furniture);
 
 /*
 * Application Module
@@ -41,32 +41,8 @@ var app = {
 
     //INITIALIZE APP
     welcome.init();
-    this.checkUserAuthentication();
     this.createDropdowns();
     this.setOfficeBackground();
-    this.logout();
-  },
-
-
-  /*
-  * Check User Authentication
-  *
-  * Hide/Show if user is loggedin/loggedout
-  */
-
-  checkUserAuthentication: function(){
-    var self = this;
-
-    rootRef.onAuth(function(authData){
-      if (authData) {
-        self.hideWelcomeScreen();
-        self.renderFurniture();
-        userProfile.init(authData);
-      }
-      else {
-        self.showWelcomeScreen();
-      }
-    });
   },
 
 
@@ -135,6 +111,7 @@ var app = {
   */
 
   addFurniture: function(type) {
+    // STEP-1
     furnitureRef.push({
       top: 400,
       left: 300,
@@ -144,100 +121,6 @@ var app = {
       "z-index": this.maxZIndex + 1,
       name: ""
     });
-  },
-
-
-  /*
-  * Create Furniture
-  *
-  * Adds a piece of furniture using a Firebase data snapshot
-  */
-
-  createFurniture: function(snapshot) {
-    new Furniture(snapshot, this);
-  },
-
-
-  /*
-  * Render Furniture
-  *
-  * Renders all existing furnture and adds new items
-  * when the Firebase is updated
-  */
-
-  renderFurniture: function(){
-    var self = this;
-
-    // ADD ALL EXISTING FURNITURE
-    furnitureRef.once("value", function(snapshot){
-      self.setMaxZIndex(snapshot, true);
-
-      snapshot.forEach(function(childSnapshot) {
-        self.createFurniture(snapshot);
-      });
-    });
-
-    // LISTEN FOR NEW FURNITURE AND ADD IT
-    furnitureRef.on("child_added", function(snapshot){
-      self.setMaxZIndex(snapshot);
-      self.createFurniture(snapshot);
-    });
-  },
-
-
-  /*
-  * Log out of App
-  *
-  */
-
-  logout: function(){
-    this.$signOutButton.on("click", function(e){
-      rootRef.unauth();
-    });
-  },
-
-
-  /*
-  * Show App Welcome Screen
-  *
-  */
-
-  showWelcomeScreen: function(){
-    this.$welcome.removeClass("is-hidden");
-    this.$app.addClass("is-hidden");
-  },
-
-
-  /*
-  * Hide App Welcome Screen
-  *
-  */
-
-  hideWelcomeScreen: function(){
-    this.$welcome.addClass("is-hidden");
-    this.$app.removeClass("is-hidden");
-  },
-
-
-  /*
-  * Set Furniture Stacking Order (z-index)
-  *
-  */
-
-  setMaxZIndex: function(snapshot, hasChildren) {
-    var value = snapshot.val();
-
-    if (hasChildren) {
-      var maxItem = _.max(value, function(item){
-        return item['z-index'];
-      });
-
-      this.maxZIndex = maxItem['z-index'] || 0;
-    }
-    else {
-      var zIndex = (value['z-index'] >= this.maxZIndex) ? value['z-index'] : this.maxZIndex;
-      this.maxZIndex = zIndex;
-    }
   }
 };
 
