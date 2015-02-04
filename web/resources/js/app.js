@@ -120,7 +120,7 @@ var app = {
       type: type,
       rotation: 0,
       locked: false,
-      "z-index": this.maxZIndex + 1,
+      "z-index": 0,
       name: ""
     });
   },
