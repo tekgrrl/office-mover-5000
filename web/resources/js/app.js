@@ -47,6 +47,7 @@ var app = {
     this.setOfficeBackground();
     // STEP-2
     // this.renderFurniture(); // moved for step-4
+    this.logout(); // added for step-4
   },
 
   /*
@@ -67,6 +68,8 @@ var app = {
     * welcome screen and render the furniture. If no
     * display the welcome screen
     *
+    * Use the hideWelcomeScreen() and showWelcomeScreen() functions
+    * 
     */
 
   },
