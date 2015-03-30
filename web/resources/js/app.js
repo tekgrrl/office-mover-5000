@@ -140,10 +140,11 @@ var app = {
   * Renders new items of furniture
   */
   renderFurniture: function() {
+    var self = this;
     /* TODO: STEP-2
     *
     * Get existing furniture from Firebase and
-    * add it using createFurniture() helper function
+    * add it using self.createFurniture() helper function
     */
   }
 };
