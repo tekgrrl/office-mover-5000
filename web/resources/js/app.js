@@ -44,7 +44,7 @@ var app = {
     this.createDropdowns();
     this.setOfficeBackground();
     // TODO: STEP-2
-    // add call to renderFurniture()
+    this.renderFurniture();
   },
 
 
@@ -141,11 +141,13 @@ var app = {
   */
   renderFurniture: function() {
     var self = this;
-    /* TODO: STEP-2
-    *
-    * Get existing furniture from Firebase and
-    * add it using self.createFurniture() helper function
-    */
+
+    // STEP-2
+    furnitureRef.once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        self.createFurniture(childSnapshot);
+      });
+    });
   }
 };
 
