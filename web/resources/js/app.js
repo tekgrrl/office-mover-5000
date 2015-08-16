@@ -171,7 +171,7 @@ var app = {
     var self = this;
 
     furnitureRef.once("value", function(snapshot){
-      self.setMaxZIndex(snapshot, true);
+      self.setMaxZIndex(snapshot, true); // added for step-4
 
       snapshot.forEach(function(childSnapshot) {
         self.createFurniture(snapshot);
