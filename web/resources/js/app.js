@@ -174,8 +174,15 @@ var app = {
   * Render all existing furniture and add new items
   */
   renderFurniture: function() {
-    // STEP-3
     var self = this;
+
+    furnitureRef.once("value", function(snapshot){
+      self.setMaxZIndex(snapshot, true);
+
+      snapshot.forEach(function(childSnapshot) {
+        self.createFurniture(snapshot);
+      });
+    });
 
     furnitureRef.on("child_added", function(snapshot) {
       self.setMaxZIndex(snapshot);
