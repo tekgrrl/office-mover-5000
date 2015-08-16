@@ -69,7 +69,7 @@ var app = {
     * display the welcome screen
     *
     * Use the hideWelcomeScreen() and showWelcomeScreen() functions
-    * 
+    *
     */
 
   },
@@ -169,6 +169,14 @@ var app = {
   renderFurniture: function() {
     // STEP-3
     var self = this;
+
+    furnitureRef.once("value", function(snapshot){
+      self.setMaxZIndex(snapshot, true);
+
+      snapshot.forEach(function(childSnapshot) {
+        self.createFurniture(snapshot);
+      });
+    });
 
     furnitureRef.on("child_added", function(snapshot) {
       self.setMaxZIndex(snapshot); // added for step-4
