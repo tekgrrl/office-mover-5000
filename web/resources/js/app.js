@@ -43,8 +43,9 @@ var app = {
     welcome.init();
     this.createDropdowns();
     this.setOfficeBackground();
-    // TODO: STEP-2
-    this.renderFurniture();
+    /* STEP-2
+    * TODO - Add call to renderFurniture() in the init() function
+    */
   },
 
 
@@ -126,7 +127,7 @@ var app = {
   },
 
   /*
-  * Create Furniture
+  * Create Furniture [Added for Step-2]
   *
   * Helper function to add a piece of furniture from a Firebase Snapshot
   */
@@ -142,12 +143,12 @@ var app = {
   renderFurniture: function() {
     var self = this;
 
-    // STEP-2
-    furnitureRef.once("value", function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        self.createFurniture(childSnapshot);
-      });
-    });
+    /* STEP-2
+    * TODO - Implement the renderFurniture() function body. This will get
+    * existing furniture from Firebase and add it to the UI using the
+    * createFurniture() helper function
+    */
+
   }
 };
 
