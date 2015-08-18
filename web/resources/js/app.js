@@ -5,7 +5,11 @@ var Dropdown = require('./components/dropdown');
 var Furniture  = require('./components/furniture');
 var welcome = require('./components/welcome');
 var backgroundRef = new Firebase(Utils.urls.background);
-var furnitureRef = new Firebase(Utils.urls.furniture);
+/*
+*      STEP-1
+*      TODO - Create FurnitureRef
+*      See backgroundRef definition for a hint
+*/
 
 /*
 * Application Module
@@ -112,15 +116,11 @@ var app = {
   */
 
   addFurniture: function(type) {
-    furnitureRef.push({
-      type: type,
-      top: 400,
-      left: 300,
-      rotation: 0,
-      locked: false,
-      "z-index": 0,
-      name: ""
-    });
+    /*
+    *      STEP-1
+    *      TODO - Create a new furniture object and add it to Firebase
+    *      See document for the JSON that represents a Furniture Object
+    */
   }
 };
 
