@@ -85,7 +85,7 @@ gulp.task('connect', function() {
   connect.server({
     root: [__dirname],
     host: '0.0.0.0',
-    port: 8000,
+    port: 8080,
     livereload: true
   });
 });
@@ -101,7 +101,7 @@ gulp.task('default', ['css', 'webpack', 'watch', 'connect'], function() {
   var stream = gulp.src("index.html")
       .pipe(openPage("", {
         app: "Google Chrome",
-        url: "http://localhost:8000"
+        url: "http://localhost:8080"
       }));
 
   return stream;
